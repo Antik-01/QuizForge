@@ -1,4 +1,4 @@
-"# QuizBrutal - Online Quiz System
+"# QuizForge- Online Quiz System
 
 An engaging online quiz system built with HTML, CSS, and JavaScript featuring a modern neo-brutalist design.
 
