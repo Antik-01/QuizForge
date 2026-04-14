@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizForge - Online Quiz System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="logo">QuizForge</div>
+        <div class="header-actions">
+            <button id="restart-btn" class="btn-outline" data-testid="restart-button" style="display: none;">Restart Quiz</button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen active">
+            <div class="welcome-card">
+                <h1 data-testid="welcome-heading">Welcome to QuizForge!</h1>
+                <p class="subtitle">Test your knowledge with our engaging quiz system</p>
+                <div class="features">
+                    <div class="feature-item">
+                        <span class="feature-icon">📚</span>
+                        <span>Multiple Topics</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">⏱️</span>
+                        <span>Timed Challenges</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🖼️</span>
+                        <span>Image Questions</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🎯</span>
+                        <span>Instant Results</span>
+                    </div>
+                </div>
+                <button class="btn-primary" id="start-btn" data-testid="start-quiz-button">Start Quiz</button>
+            </div>
+        </div>
+
+        <!-- Configuration Screen -->
+        <div id="config-screen" class="screen">
+            <div class="config-card">
+                <h2 data-testid="config-heading">Configure Your Quiz</h2>
+                
+                <!-- Topic Selection -->
+                <div class="config-section">
+                    <label class="config-label">SELECT TOPIC</label>
+                    <div class="topic-grid">
+                        <button class="topic-card" data-topic="general" data-testid="topic-general">
+                            <span class="topic-icon">🌍</span>
+                            <span class="topic-name">General Knowledge</span>
+                        </button>
+                        <button class="topic-card" data-topic="science" data-testid="topic-science">
+                            <span class="topic-icon">🔬</span>
+                            <span class="topic-name">Science</span>
+                        </button>
+                        <button class="topic-card" data-topic="history" data-testid="topic-history">
+                            <span class="topic-icon">📜</span>
+                            <span class="topic-name">History</span>
+                        </button>
+                        <button class="topic-card" data-topic="geography" data-testid="topic-geography">
+                            <span class="topic-icon">🗺️</span>
+                            <span class="topic-name">Geography</span>
+                        </button>
+                        <button class="topic-card" data-topic="sports" data-testid="topic-sports">
+                            <span class="topic-icon">⚽</span>
+                            <span class="topic-name">Sports</span>
+                        </button>
+                        <button class="topic-card" data-topic="technology" data-testid="topic-technology">
+                            <span class="topic-icon">💻</span>
+                            <span class="topic-name">Technology</span>
+                        </button>
+                        <button class="topic-card" data-topic="mathematics" data-testid="topic-mathematics">
+                            <span class="topic-icon">🔢</span>
+                            <span class="topic-name">Mathematics</span>
+                        </button>
+                        <button class="topic-card" data-topic="mixed" data-testid="topic-mixed">
+                            <span class="topic-icon">🎲</span>
+                            <span class="topic-name">Mixed Topics</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Number of Questions -->
+                <div class="config-section">
+                    <label class="config-label">NUMBER OF QUESTIONS</label>
+                    <div class="option-group">
+                        <button class="option-btn" data-questions="5" data-testid="questions-5">5</button>
+                        <button class="option-btn selected" data-questions="10" data-testid="questions-10">10</button>
+                        <button class="option-btn" data-questions="15" data-testid="questions-15">15</button>
+                        <button class="option-btn" data-questions="20" data-testid="questions-20">20</button>
+                    </div>
+                </div>
+
+                <!-- Timer Selection -->
+                <div class="config-section">
+                    <label class="config-label">TIME LIMIT (MINUTES)</label>
+                    <div class="option-group">
+                        <button class="option-btn" data-timer="5" data-testid="timer-5">5</button>
+                        <button class="option-btn selected" data-timer="10" data-testid="timer-10">10</button>
+                        <button class="option-btn" data-timer="15" data-testid="timer-15">15</button>
+                        <button class="option-btn" data-timer="20" data-testid="timer-20">20</button>
+                        <button class="option-btn" data-timer="30" data-testid="timer-30">30</button>
+                    </div>
+                </div>
+
+                <button class="btn-primary" id="begin-quiz-btn" data-testid="begin-quiz-button" disabled>Begin Quiz</button>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="screen">
+            <div class="quiz-header">
+                <div class="quiz-info">
+                    <div class="info-item">
+                        <span class="info-label">QUESTION</span>
+                        <span class="info-value" id="question-counter" data-testid="question-counter">1/10</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">TIME LEFT</span>
+                        <span class="info-value" id="timer" data-testid="timer-display">10:00</span>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <h3 class="question-text" id="question-text" data-testid="question-text">Loading question...</h3>
+                <div id="question-image-container" class="question-image-container" style="display: none;">
+                    <img id="question-image" class="question-image" alt="Question image" data-testid="question-image">
+                </div>
+                <div class="options-container" id="options-container">
+                    <!-- Options will be dynamically inserted -->
+                </div>
+            </div>
+
+            <div class="navigation-buttons">
+                <button class="btn-outline" id="prev-btn" data-testid="prev-button" disabled>← Previous</button>
+                <div class="question-indicators" id="question-indicators">
+                    <!-- Indicators will be dynamically inserted -->
+                </div>
+                <button class="btn-secondary" id="next-btn" data-testid="next-button">Next →</button>
+            </div>
+
+            <button class="btn-primary" id="submit-quiz-btn" data-testid="submit-quiz-button" style="display: none;">Submit Quiz</button>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="screen">
+            <div class="results-card">
+                <h2 data-testid="results-heading">Quiz Complete!</h2>
+                <div class="score-display">
+                    <div class="score-circle">
+                        <span class="score-value" id="score-value" data-testid="score-value">0</span>
+                        <span class="score-total" id="score-total" data-testid="score-total">/10</span>
+                    </div>
+                    <p class="score-percentage" id="score-percentage" data-testid="score-percentage">0%</p>
+                </div>
+                <div class="results-stats">
+                    <div class="stat-item correct">
+                        <span class="stat-icon">✓</span>
+                        <span class="stat-label">Correct</span>
+                        <span class="stat-value" id="correct-count" data-testid="correct-count">0</span>
+                    </div>
+                    <div class="stat-item incorrect">
+                        <span class="stat-icon">✗</span>
+                        <span class="stat-label">Incorrect</span>
+                        <span class="stat-value" id="incorrect-count" data-testid="incorrect-count">0</span>
+                    </div>
+                    <div class="stat-item unanswered">
+                        <span class="stat-icon">○</span>
+                        <span class="stat-label">Unanswered</span>
+                        <span class="stat-value" id="unanswered-count" data-testid="unanswered-count">0</span>
+                    </div>
+                </div>
+                <div class="results-actions">
+                    <button class="btn-primary" id="review-btn" data-testid="review-answers-button">Review Answers</button>
+                    <button class="btn-secondary" id="new-quiz-btn" data-testid="new-quiz-button">Take New Quiz</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Review Screen -->
+        <div id="review-screen" class="screen">
+            <div class="review-header">
+                <h2 data-testid="review-heading">Review Your Answers</h2>
+                <button class="btn-outline" id="back-to-results-btn" data-testid="back-to-results-button">← Back to Results</button>
+            </div>
+            <div id="review-container">
+                <!-- Review questions will be dynamically inserted -->
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
